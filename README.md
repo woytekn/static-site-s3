@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# AWS Infrastructure for React Application Hosting
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## **Project Overview**
 
-## Available Scripts
+This project demonstrates a robust and secure infrastructure setup for hosting a React application using AWS services, managed through Terraform. It showcases best practices in Infrastructure as Code (IaC), ensuring scalability, security, and high performance. This setup is ideal for modern web applications requiring reliable static hosting with global content delivery.
 
-In the project directory, you can run:
+## **Key Features**
 
-### `npm start`
+- **Scalable Static Hosting**: Utilizes Amazon S3 for storing and serving static React application files.
+- **Content Delivery Network**: Leverages Amazon CloudFront to deliver content with low latency globally.
+- **Security Enhancements**:
+  - **Origin Access Identity (OAI)**: Restricts direct access to the S3 bucket, ensuring content is only accessible via CloudFront.
+  - **Bucket Ownership Controls**: Enforces bucket ownership to prevent unauthorized access.
+  - **HTTPS Enforcement**: Ensures all traffic is securely transmitted over HTTPS.
+- **Automated Deployment**: Infrastructure is defined and managed using Terraform, enabling reproducibility and version control.
+- **Efficient Caching**: Configured caching strategies in CloudFront to optimize performance and reduce costs.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## **Technologies Used**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Terraform**: Infrastructure as Code tool for provisioning and managing AWS resources.
+- **AWS Services**:
+  - **S3 (Simple Storage Service)**: For static website hosting.
+  - **CloudFront**: As a Content Delivery Network (CDN) to distribute content globally.
+  - **IAM (Identity and Access Management)**: For defining access policies and permissions.
+  - **Random ID Generator**: Ensures unique S3 bucket naming to prevent conflicts.
 
-### `npm test`
+## **Architecture Overview**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **S3 Bucket**: Stores the React application's build files, configured for static website hosting.
+2. **CloudFront Distribution**: Distributes the content globally with caching and HTTPS support.
+3. **Origin Access Identity (OAI)**: Secures the S3 bucket by allowing access only through CloudFront.
+4. **Bucket Policy**: Grants CloudFront the necessary permissions to access the S3 bucket contents.
+5. **Automated File Uploads**: Terraform scripts upload the React build files to S3, setting appropriate content types for each file.
 
-### `npm run build`
+## **Setup & Deployment**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### **Prerequisites**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Terraform**: Installed on your local machine. [Installation Guide](https://learn.hashicorp.com/tutorials/terraform/install-cli)
+- **AWS Account**: With necessary permissions to create S3 buckets, CloudFront distributions, IAM policies, etc.
+- **React Application**: Built and ready for deployment.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### **Deployment Steps**
 
-### `npm run eject`
+1. **Clone the Repository**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```bash
+   git clone https://github.com/yourusername/react-aws-infrastructure.git
+   cd react-aws-infrastructure
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. **Initialize Terraform**
+   terraform init
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+3. **Review the plan **
+   terraform apply
